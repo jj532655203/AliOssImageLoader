@@ -5,7 +5,7 @@
 相反，如果贵公司的图片资源可公开访问，或者保存在阿里云oss上但是老板说了永远不做身份认证，那您可直接使用其它优秀图片加载器（如Glide等）。
 
 ## 用法：
-###1.项目根目录的gradle文件 
+### 1.项目根目录的gradle文件 
 
 buildscript.repositories{
 	maven { url "https://jitpack.io" }
@@ -25,7 +25,7 @@ implementation  'com.github.jj532655203:AliOssImageLoader:1.1.2'
 
 ### 3.Application.onCreate方法中
 
-//AliOssImageLoader初始化
+		
         AliOssImageLoader.init(new OSSFederationCredentialProvider() {
 
             /**
@@ -42,6 +42,7 @@ implementation  'com.github.jj532655203:AliOssImageLoader:1.1.2'
         }, <BUCKET_NAME>);
 		
 		
-##tips
+
+## tips
 
 建议对图片加载器原理不够了解的开发者,将项目下载下来研究清楚,里面的图片缓存机制/线程池reject策略的用法/防止bitmap引起的内存泄漏等知识都是非常重要又基础的。
