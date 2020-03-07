@@ -30,4 +30,9 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.1"
+    implementation "com.google.code.gson:gson:2.8.5"
+    implementation "com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar"
+
 }

@@ -2,6 +2,7 @@ package com.fronttcapital.imageloader;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -12,6 +13,8 @@ import android.widget.ImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSFederationCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSFederationToken;
 import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.Utils;
 import com.fronttcapital.imageloader.utils.disk_lru_cache.DiskLruCacheUtils;
@@ -30,8 +33,16 @@ public class AliOssImageLoader {
     private static OSSCredentialProvider sCredentialProvider;
     private static String sBucketName;
 
-    public static void init(OSSCredentialProvider credentialProvider, String BUCKET_NAME) {
-        sCredentialProvider = credentialProvider;
+    public static void init(final OSSFederationToken ossFederationToken, String BUCKET_NAME) {
+
+        sCredentialProvider = new OSSFederationCredentialProvider() {
+
+            @Override
+            public OSSFederationToken getFederationToken() {
+                return ossFederationToken;
+            }
+        };
+
         sBucketName = BUCKET_NAME;
     }
 
@@ -109,7 +120,7 @@ public class AliOssImageLoader {
             return;
         }
 
-        imageView.setImageResource(0);
+        recycleBitmap(imageView);
         imageView.setTag(ossImgPath);
         final WeakReference<ImageView> imageViewRef = new WeakReference<>(imageView);
 
@@ -162,5 +173,20 @@ public class AliOssImageLoader {
 
     }
 
+
+    private static void recycleBitmap(ImageView iv) {
+        if (iv == null || iv.getDrawable() == null) return;
+
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) iv.getDrawable();
+        iv.setImageDrawable(null);
+        if (bitmapDrawable != null) {
+            recycle(bitmapDrawable.getBitmap());
+        }
+    }
+
+    private static void recycle(Bitmap bitmap) {
+        if (bitmap == null || bitmap.isRecycled()) return;
+        bitmap.recycle();
+    }
 
 }
