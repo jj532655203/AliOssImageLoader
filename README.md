@@ -19,7 +19,7 @@ allprojects.repositories{
 
 ### 2.您要使用本图片加载器的module(比如app)的gradle文件
 
-implementation  'com.github.jj532655203:AliOssImageLoader:1.0.0'
+implementation  'com.github.jj532655203:AliOssImageLoader:1.1.2'
 
 
 
@@ -44,4 +44,4 @@ implementation  'com.github.jj532655203:AliOssImageLoader:1.0.0'
 		
 ##tips
 
-建议对图片加载器原理不够了解的开发者,将项目下载下来研究清楚,里面的图片缓存机制/线程池reject策略的用法/防止bitmap引起的内存泄漏等知识都是非常典型又基础的。
+建议对图片加载器原理不够了解的开发者,将项目下载下来研究清楚,里面的图片缓存机制/线程池reject策略的用法/防止bitmap引起的内存泄漏等知识都是非常重要又基础的。

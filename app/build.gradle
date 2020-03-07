@@ -35,7 +35,7 @@ dependencies {
 
 
     //下面2选1
-    implementation project(':imageloader')
-//    implementation 'com.github.jj532655203:AliOssImageLoader:1.0.1'
+//    implementation project(':imageloader')
+    implementation 'com.github.jj532655203:AliOssImageLoader:1.1.2'
 
 }
