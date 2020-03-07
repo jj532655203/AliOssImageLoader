@@ -13,8 +13,6 @@ import android.widget.ImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
-import com.alibaba.sdk.android.oss.common.auth.OSSFederationCredentialProvider;
-import com.alibaba.sdk.android.oss.common.auth.OSSFederationToken;
 import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.Utils;
 import com.fronttcapital.imageloader.utils.disk_lru_cache.DiskLruCacheUtils;
@@ -33,16 +31,12 @@ public class AliOssImageLoader {
     private static OSSCredentialProvider sCredentialProvider;
     private static String sBucketName;
 
-    public static void init(final OSSFederationToken ossFederationToken, String BUCKET_NAME) {
-
-        sCredentialProvider = new OSSFederationCredentialProvider() {
-
-            @Override
-            public OSSFederationToken getFederationToken() {
-                return ossFederationToken;
-            }
-        };
-
+    /**
+     * @param credentialProvider oss验证token过期时将自动回调本实例的getFederationToken()方法,方法中请正确按照oss要求操作
+     * @param BUCKET_NAME        阿里云oss的BUCKET_NAME
+     */
+    public static void init(OSSCredentialProvider credentialProvider, String BUCKET_NAME) {
+        sCredentialProvider = credentialProvider;
         sBucketName = BUCKET_NAME;
     }
 

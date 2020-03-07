@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -14,71 +13,38 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.blankj.utilcode.util.ToastUtils;
 import com.fronttcapital.aliossimageloader.R;
 import com.fronttcapital.aliossimageloader.adapter.SetHomeworkPageAdapter;
-import com.fronttcapital.aliossimageloader.mvp.contract.IMainActivityContract;
-import com.fronttcapital.aliossimageloader.mvp.presenter.MainActivityPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements IMainActivityContract.View {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private static final int REQUEST_CODE = 101;
-    private IMainActivityContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        presenter = new MainActivityPresenter(this);
-
-        //判断当前系统的版本
-        requestPermission();
-
+        checkPermission();
 
     }
 
-    private void requestPermission() {
+    private void checkPermission() {
         if (Build.VERSION.SDK_INT >= 23) {
-            int checkWriteStoragePermission = ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.READ_PHONE_STATE);
+            int checkWriteStoragePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            int checkNetPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
             //如果没有被授予
-            if (checkWriteStoragePermission != PackageManager.PERMISSION_GRANTED) {
+            if (checkWriteStoragePermission != PackageManager.PERMISSION_GRANTED || checkNetPermission != PackageManager.PERMISSION_GRANTED) {
                 //请求权限,此处可以同时申请多个权限
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
             } else {
-                getOSSAccessKey();
+                setUpViewPager2();
             }
         } else {
-            getOSSAccessKey();
+            setUpViewPager2();
         }
-    }
-
-    private void getOSSAccessKey() {
-        presenter.getOSSAccessKey();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, final String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_CODE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    getOSSAccessKey();
-
-                } else {
-                    ToastUtils.showShort("获取权限失败!");
-                }
-                break;
-        }
-    }
-
-    @Override
-    public void getOSSAccessKeySucceed() {
-
-        setUpViewPager2();
-
     }
 
     private void setUpViewPager2() {
@@ -125,8 +91,18 @@ public class MainActivity extends AppCompatActivity implements IMainActivityCont
     }
 
     @Override
-    public void getOSSAccessKeyFailed(String msg) {
-        ToastUtils.showShort("阿里云oss验证失败,无法加载图片");
-        Log.e(TAG, "getOSSAccessKeyFailed msg=" + msg);
+    public void onRequestPermissionsResult(int requestCode, final String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    checkPermission();
+
+                } else {
+                    ToastUtils.showShort("获取权限失败!");
+                }
+                break;
+        }
     }
+
 }
