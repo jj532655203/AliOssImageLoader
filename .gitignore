@@ -10,3 +10,6 @@
 app/build
 app/src/androidTest
 app/src/test
+imageloader/build
+imageloader/src/androidTest
+imageloader/src/test
