@@ -42,7 +42,16 @@ implementation  'com.github.jj532655203:AliOssImageLoader:1.1.2'
         }, <BUCKET_NAME>);
 		
 		
+###  4.proguard
 
+-keep class com.github.jj532655203.** { *; }
+-dontwarn com.github.jj532655203.**
+
+
+		
+		
 ## tips
 
-建议对图片加载器原理不够了解的开发者,将项目下载下来研究清楚,里面的图片缓存机制/线程池reject策略的用法/防止bitmap引起的内存泄漏等知识都是非常重要又基础的。
+建议对图片加载器原理不够了解的开发者,将项目下载下来研究清楚,里面的图片LRU缓存机制/线程池reject策略用于快速滑动列表的场景/防止bitmap引起的内存泄漏等知识都是非常重要又基础的。
+
+觉得好请star,让更多人知道。谢谢。
