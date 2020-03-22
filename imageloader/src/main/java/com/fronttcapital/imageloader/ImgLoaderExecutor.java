@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  * 工作线程池(用于大量加载图片)
  */
 
-class ImgLoaderExecutor {
+public class ImgLoaderExecutor {
 
     private static final int INITIAL_POOL_SIZE = 1;
     private static final int MAX_POOL_SIZE = 1;

@@ -10,10 +10,12 @@ import com.blankj.utilcode.util.Utils;
 import com.fronttcapital.imageloader.Constants;
 import com.fronttcapital.imageloader.utils.Md5Utils;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -81,6 +83,35 @@ public class DiskLruCacheUtils {
         }
 
         return bitmap;
+    }
+
+    public String getDrawPathJson(String objectKey) {
+
+        if (Looper.getMainLooper() == Looper.myLooper()) {
+            Log.e(TAG, "不能在主线程操作DiskLruCache");
+            return null;
+        }
+
+        String key = Md5Utils.encode(objectKey);
+
+        String drawPathJson = null;
+        FileInputStream inputStream = null;
+        try {
+            DiskLruCache.Snapshot snapshot = mDiskLruCache.get(key);
+            if (snapshot != null) {
+                inputStream = (FileInputStream) snapshot.getInputStream(0);
+                FileDescriptor fd = inputStream.getFD();
+                FileReader fileReader = new FileReader(fd);
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+                drawPathJson = bufferedReader.readLine();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            IOUtils.safeClose(inputStream);
+        }
+
+        return drawPathJson;
     }
 
     public void put(String ossImgPath, Bitmap bitmap) {

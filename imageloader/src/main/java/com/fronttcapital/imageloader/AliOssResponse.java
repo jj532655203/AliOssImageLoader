@@ -2,7 +2,7 @@ package com.fronttcapital.imageloader;
 
 import java.io.InputStream;
 
-class AliOssResponse {
+public class AliOssResponse {
     private int statusCode;
     private InputStream inputStream;
 

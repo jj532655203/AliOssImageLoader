@@ -14,7 +14,7 @@ import com.alibaba.sdk.android.oss.model.GetObjectResult;
  * Jay
  * 阿里云对象存储oss
  */
-class AliOssUtils {
+public class AliOssUtils {
 
     private static final String TAG = "AliOssUtils";
     private static OSSClient ossClient;
