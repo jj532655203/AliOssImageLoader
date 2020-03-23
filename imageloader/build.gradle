@@ -38,5 +38,5 @@ dependencies {
 
     implementation 'com.blankj:utilcode:1.25.5'
     implementation 'com.aliyun.dpa:oss-android-sdk:2.9.2'
-    implementation 'com.github.jj532655203:FstDiskLruCache:1.0.0'
+    api 'com.github.jj532655203:FstDiskLruCache:1.0.0'
 }
