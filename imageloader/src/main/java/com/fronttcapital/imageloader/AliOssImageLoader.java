@@ -15,7 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.Utils;
-import com.jj.fst_disk_lru.utils.disk_lru_cache.DiskLruCacheUtils;
+import com.jj.fst_disk_lru.disk_lru_cache.DiskLruCacheUtils;
 
 import java.lang.ref.WeakReference;
 import java.text.DecimalFormat;
