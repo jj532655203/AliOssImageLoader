@@ -1,5 +1,13 @@
 # AliOssImageLoader
 
+apk下载地址:
+
+https://phone-love-piano-public-ro.oss-cn-shenzhen.aliyuncs.com/demo-apk/ali_oss_image_loader_debug_0403.apk
+
+或手机扫码下载
+
+![Image scan qrcode download apk](https://phone-love-piano-public-ro.oss-cn-shenzhen.aliyuncs.com/demo-apk/ali_oss_image_loader_debug_apk_qrcode.png)
+
 本library使用与图片资源保存在阿里云oss服务器上,获取图片时存在身份认证,或者以后可能要做身份的。
 
 相反，如果贵公司的图片资源可公开访问，或者保存在阿里云oss上但是老板说了永远不做身份认证，那您可直接使用其它优秀图片加载器（如Glide等）。
